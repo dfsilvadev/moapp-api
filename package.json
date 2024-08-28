@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "dev:migration": "node src/database/postgres/migrations/exec.js",
+    "migrations:run": "node src/database/postgres/migrations/exec.js",
     "prepare": "husky",
     "lint": "npx eslint src --max-warnings=0",
     "lint-staged": "npx lint-staged"
