@@ -9,7 +9,7 @@ const pool = new Pool({
   database: process.env.PSQL_DATABASE
 });
 
-const PostgresHelper = {
+const psql = {
   query: async (query, values) => {
     const client = await pool.connect();
     const { rows } = await client.query(query, values);
@@ -19,4 +19,4 @@ const PostgresHelper = {
   }
 };
 
-export { pool, PostgresHelper };
+export { pool, psql };

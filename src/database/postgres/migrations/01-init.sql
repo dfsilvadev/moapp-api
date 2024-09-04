@@ -1,6 +1,8 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- Criando a tabela TB_USER
 CREATE TABLE IF NOT EXISTS TB_USER (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(150) NOT NULL,
     email VARCHAR(150) NOT NULL,
     password VARCHAR NOT NULL,
@@ -12,7 +14,7 @@ CREATE INDEX idx_email ON TB_USER (email);
 
 -- Criando a tabela TB_EXPENSE_LIMIT
 CREATE TABLE IF NOT EXISTS TB_EXPENSE_LIMIT (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     amount NUMERIC(10,2) NOT NULL,
     userId UUID NOT NULL,
     CONSTRAINT fk_userid FOREIGN KEY (userId) REFERENCES TB_USER(id),
@@ -36,7 +38,7 @@ CREATE TYPE TB_FREQUENCY_ENUM AS ENUM ('recurring', 'occasional');
 
 -- Criando a tabela TB_FREQUENCY
 CREATE TABLE IF NOT EXISTS TB_FREQUENCY (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name TB_FREQUENCY_ENUM NOT NULL
 );
 
@@ -45,13 +47,13 @@ CREATE TYPE TB_CATEGORY_ENUM AS ENUM ('food', 'car', 'home', 'investments', 'lei
 
 -- Criando a tabela TB_CATEGORY
 CREATE TABLE IF NOT EXISTS TB_CATEGORY (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name TB_CATEGORY_ENUM NOT NULL
 );
 
 -- Criando a tabela TB_TRANSACTION
 CREATE TABLE IF NOT EXISTS TB_TRANSACTION (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     title VARCHAR(100) NOT NULL,
     createdAt TIMESTAMP NOT NULL,
     amount NUMERIC(10,2) NOT NULL,
