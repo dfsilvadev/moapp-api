@@ -1,17 +1,13 @@
 import { psql } from '../database/postgres/client';
-import bcrypt from 'bcrypt';
 
 export class CreateUserRepository {
-  async execute({ name, email, password }) {
-    const salt = bcrypt.genSalt();
-    const encryptedPassword = await bcrypt.hash(password, salt);
-
+  async execute({ id, name, email, password, createdAt }) {
     const row = await psql.query(
       `
-      INSERT INTO contacts (name, email, password, createdAt)
-      VALUES($1, $2, $3, $4)
+      INSERT INTO contacts (id, name, email, password, createdAt)
+      VALUES($1, $2, $3, $4, $5)
       RETURNING *`,
-      [name, email, encryptedPassword, new Date()]
+      [id, name, email, password, createdAt]
     );
 
     return row;
