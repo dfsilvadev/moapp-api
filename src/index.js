@@ -1,13 +1,13 @@
 import 'dotenv/config.js';
 import express from 'express';
 
-import { PostgresHelper } from './database/postgres/client.js';
+import { psql } from './database/postgres/client.js';
 
 const app = express();
 const PORT = process.env.PORT;
 
 app.get('/', async (req, res) => {
-  const results = await PostgresHelper.query('SELECT * FROM TB_USER;');
+  const results = await psql.query('SELECT * FROM TB_USER;');
 
   res.send(JSON.stringify(results));
 });
